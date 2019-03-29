@@ -3,18 +3,19 @@ package com.ddkolesnik.bitrixflowsintegration.service;
 import com.ddkolesnik.bitrixflowsintegration.model.BitrixResult;
 import com.ddkolesnik.bitrixflowsintegration.model.Contact;
 import com.ddkolesnik.bitrixflowsintegration.model.ContactFilter;
+import com.ddkolesnik.bitrixflowsintegration.repository.ContactRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Alexandr Stegnin
@@ -24,8 +25,9 @@ import java.util.List;
 public class ContactServiceImpl implements ContactService {
 
     private final RestTemplate restTemplate;
+    private final ContactFilter filter;
+    private final ContactRepository contactRepository;
 
-    private static final String MIME_TYPE = "application/json";
     private static final String USER_AGENT = "Spring 5 WebClient";
     private static final Logger logger = LoggerFactory.getLogger(ContactServiceImpl.class);
 
@@ -34,8 +36,11 @@ public class ContactServiceImpl implements ContactService {
     private static String BITRIX_CRM_CONTACT_LIST;
 
     @Autowired
-    public ContactServiceImpl(RestTemplate restTemplate) {
+    public ContactServiceImpl(RestTemplate restTemplate, ContactFilter filter,
+                              ContactRepository contactRepository) {
+        this.contactRepository = contactRepository;
         this.restTemplate = restTemplate;
+        this.filter = filter;
     }
 
     @Value("${bitrix.default.url}")
@@ -55,8 +60,11 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public List<Contact> getContactsList() {
-        ContactFilter filter = new ContactFilter();
-        HttpEntity<ContactFilter> requestEntity = new HttpEntity<>(filter);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(new ArrayList<>(Collections.singletonList(MediaType.APPLICATION_JSON)));
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        headers.add(HttpHeaders.USER_AGENT, USER_AGENT);
+        HttpEntity<ContactFilter> requestEntity = new HttpEntity<>(filter, headers);
         ResponseEntity<BitrixResult> resultResponseEntity = restTemplate.exchange(
                 BITRIX_API_BASE_URL + BITRIX_ACCESS_KEY + BITRIX_CRM_CONTACT_LIST,
                 HttpMethod.POST, requestEntity, BitrixResult.class);
@@ -64,7 +72,21 @@ public class ContactServiceImpl implements ContactService {
         List<Contact> contacts = new ArrayList<>();
         if (result != null) {
             contacts = result.getResult();
+        } else {
+            logger.error("Error getting contacts info, body is empty");
         }
+        contacts.forEach(contact -> {
+            if (!Objects.equals(null, contact.getEmail())) {
+                contact.getEmail().forEach(email -> {
+                    email.setContact(contact);
+                });
+            }
+        });
         return contacts;
+    }
+
+    @Override
+    public List<Contact> saveContacts(List<Contact> contacts) {
+        return contactRepository.saveAll(contacts);
     }
 }

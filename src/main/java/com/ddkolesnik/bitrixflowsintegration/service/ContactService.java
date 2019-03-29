@@ -8,9 +8,10 @@ import java.util.List;
  * @author Alexandr Stegnin
  */
 
-@FunctionalInterface
 public interface ContactService {
 
     List<Contact> getContactsList();
+
+    List<Contact> saveContacts(List<Contact> contacts);
 
 }
