@@ -44,9 +44,9 @@ public class Contact {
 
     @JsonCreator
     public Contact(@JsonProperty("ID") String id,
-                   @JsonProperty("NAME") String  name,
-                   @JsonProperty("SECOND_NAME") String  secondName,
-                   @JsonProperty("LAST_NAME") String  lastName,
+                   @JsonProperty("NAME") String name,
+                   @JsonProperty("SECOND_NAME") String secondName,
+                   @JsonProperty("LAST_NAME") String lastName,
                    @JsonProperty("EMAIL") List<Email> email) {
         this.id = id;
         this.name = name;

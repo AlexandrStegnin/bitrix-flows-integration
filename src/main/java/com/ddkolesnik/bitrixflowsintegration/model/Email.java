@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Table(name = "bitrix_contact_email")
+@ToString(of = {"id", "valueType", "value", "typeId"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Email {
 
