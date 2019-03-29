@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author Alexandr Stegnin
+ * <p>
+ * Репозиторий для сохранения списка контактов в базе данных ДДК
  */
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, String> {
