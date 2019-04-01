@@ -22,3 +22,9 @@ DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci;
 
 ALTER TABLE bitrix_flows.bitrix_contact_email ADD CONSTRAINT bitrix_contact_email_bitrix_contact_fk FOREIGN KEY (contact_id) REFERENCES bitrix_flows.bitrix_contact(id) ON DELETE CASCADE;
+
+ALTER TABLE bitrix_flows.bitrix_contact ADD created_at TIMESTAMP NULL;
+ALTER TABLE bitrix_flows.bitrix_contact ADD updated_at timestamp NULL;
+
+ALTER TABLE bitrix_flows.bitrix_contact_email ADD created_at TIMESTAMP NULL;
+ALTER TABLE bitrix_flows.bitrix_contact_email ADD updated_at TIMESTAMP NULL;

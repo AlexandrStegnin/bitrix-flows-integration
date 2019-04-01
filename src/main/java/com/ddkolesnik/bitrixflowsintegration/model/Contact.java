@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -17,13 +18,9 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Table(name = "bitrix_contact")
+@EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Contact {
-
-    @Id
-    @Column(name = "id")
-    @JsonProperty("ID")
-    private String id;
+public class Contact extends AbstractEntity {
 
     @Column(name = "contact_name")
     @JsonProperty("NAME")
@@ -48,7 +45,7 @@ public class Contact {
                    @JsonProperty("SECOND_NAME") String secondName,
                    @JsonProperty("LAST_NAME") String lastName,
                    @JsonProperty("EMAIL") List<Email> email) {
-        this.id = id;
+        this.setId(id);
         this.name = name;
         this.secondName = secondName;
         this.lastName = lastName;

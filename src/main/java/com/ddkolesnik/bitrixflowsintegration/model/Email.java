@@ -5,10 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * @author Alexandr Stegnin
@@ -18,14 +22,10 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Table(name = "bitrix_contact_email")
-@ToString(of = {"id", "valueType", "value", "typeId"})
+@EqualsAndHashCode(callSuper = true)
+@ToString(of = {"valueType", "value", "typeId"})
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Email {
-
-    @Id
-    @Column(name = "id")
-    @JsonProperty("ID")
-    private String id;
+public class Email extends AbstractEntity {
 
     @Column(name = "value_type")
     @JsonProperty("VALUE_TYPE")
@@ -48,7 +48,7 @@ public class Email {
                  @JsonProperty("VALUE_TYPE") String valueType,
                  @JsonProperty("VALUE") String value,
                  @JsonProperty("TYPE_ID") String typeId) {
-        this.id = id;
+        this.setId(id);
         this.valueType = valueType;
         this.value = value;
         this.typeId = typeId;

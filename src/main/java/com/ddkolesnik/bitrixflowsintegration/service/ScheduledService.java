@@ -37,7 +37,7 @@ public class ScheduledService {
         BitrixResult bitrixResult = contactService.getBitrixResult(0);
         List<Contact> contacts = contactService.getContactsList(bitrixResult);
         contacts = contactService.saveContacts(contacts);
-        LOG.info("Saved contacts list: " + contacts);
+        LOG.info("Saved contacts list size: " + contacts.size());
     }
 
 }
