@@ -34,6 +34,7 @@ public class ContactServiceImpl implements ContactService {
     private static final Logger logger = LoggerFactory.getLogger(ContactServiceImpl.class);
 
     private static String BITRIX_API_BASE_URL;
+    private static String BITRIX_WEBHOOK_USER_ID;
     private static String BITRIX_ACCESS_KEY;
     private static String BITRIX_CRM_CONTACT_LIST;
 
@@ -86,6 +87,16 @@ public class ContactServiceImpl implements ContactService {
         BITRIX_CRM_CONTACT_LIST = value;
     }
 
+    /**
+     * Устанавливаем значение user id из private.properties
+     *
+     * @param value - значение из файла
+     */
+    @Value("${bitrix.webhook.user.id}")
+    public void setBitrixWebhookUserId(String value) {
+        BITRIX_WEBHOOK_USER_ID = value;
+    }
+
     @Override
     public List<Contact> getContactsList(@NotNull BitrixResult bitrixResult) {
         List<Contact> contacts = new ArrayList<>();
@@ -122,7 +133,7 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public BitrixResult getBitrixResult(int start) {
         ResponseEntity<BitrixResult> resultResponseEntity = restTemplate.exchange(
-                BITRIX_API_BASE_URL + BITRIX_ACCESS_KEY + BITRIX_CRM_CONTACT_LIST,
+                BITRIX_API_BASE_URL + BITRIX_WEBHOOK_USER_ID + BITRIX_ACCESS_KEY + BITRIX_CRM_CONTACT_LIST,
                 HttpMethod.POST, httpEntity, BitrixResult.class);
         BitrixResult result = resultResponseEntity.getBody();
         int next;
