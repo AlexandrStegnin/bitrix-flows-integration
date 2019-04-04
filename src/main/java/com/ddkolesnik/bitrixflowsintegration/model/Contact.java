@@ -39,17 +39,23 @@ public class Contact extends AbstractEntity {
     @JsonProperty("EMAIL")
     private List<Email> email;
 
+    @Transient
+    @JsonProperty("UF_CRM_AMO_413201")
+    private String userType;
+
     @JsonCreator
     public Contact(@JsonProperty("ID") String id,
                    @JsonProperty("NAME") String name,
                    @JsonProperty("SECOND_NAME") String secondName,
                    @JsonProperty("LAST_NAME") String lastName,
-                   @JsonProperty("EMAIL") List<Email> email) {
+                   @JsonProperty("EMAIL") List<Email> email,
+                   @JsonProperty("UF_CRM_AMO_413201") String userType) {
         this.setId(id);
         this.name = name;
         this.secondName = secondName;
         this.lastName = lastName;
         this.email = email;
+        this.userType = userType;
     }
 
 }
