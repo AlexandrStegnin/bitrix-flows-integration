@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,10 +35,9 @@ public class Contact extends AbstractEntity {
     @JsonProperty("LAST_NAME")
     private String lastName;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_id")
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
     @JsonProperty("EMAIL")
-    private List<Email> email;
+    private List<Email> emails;
 
     @Transient
     @JsonProperty("UF_CRM_AMO_413201")
@@ -54,7 +54,7 @@ public class Contact extends AbstractEntity {
         this.name = name;
         this.secondName = secondName;
         this.lastName = lastName;
-        this.email = email;
+        this.emails = email;
         this.userType = userType;
     }
 

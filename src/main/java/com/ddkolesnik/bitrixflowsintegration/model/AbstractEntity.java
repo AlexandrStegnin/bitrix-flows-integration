@@ -2,12 +2,10 @@ package com.ddkolesnik.bitrixflowsintegration.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -17,6 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @MappedSuperclass
 @ToString(of = "id")
+@EqualsAndHashCode
 public class AbstractEntity {
 
     @Id
@@ -33,6 +32,11 @@ public class AbstractEntity {
     @PrePersist
     public void prePersist() {
         if (createdAt == null) createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
 

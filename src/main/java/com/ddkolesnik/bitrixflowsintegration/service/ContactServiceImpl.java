@@ -106,8 +106,8 @@ public class ContactServiceImpl implements ContactService {
             contacts = bitrixResult.getResult();
         }
         contacts.forEach(contact -> {
-            if (!Objects.equals(null, contact.getEmail())) {
-                contact.getEmail().forEach(email -> email.setContact(contact));
+            if (!Objects.equals(null, contact.getEmails())) {
+                contact.getEmails().forEach(email -> email.setContact(contact));
             }
         });
         return contacts;
