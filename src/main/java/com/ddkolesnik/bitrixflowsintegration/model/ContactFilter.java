@@ -21,7 +21,7 @@ import java.util.Map;
 @Data
 public class ContactFilter {
 
-    private static final String USER_FIELD_NAME = "UF_CRM_AMO_413201";
+    private static final String TYPE_ID = "TYPE_ID";
     private List<String> select = new ArrayList<>();
     private String start = "0";
     private String[] params;
@@ -34,8 +34,8 @@ public class ContactFilter {
         select.add("LAST_NAME");
         select.add("EMAIL");
         select.add("UF_CRM_AMO_413201");
-        params = new String[]{"44"};
-        filter.put(USER_FIELD_NAME, params);
+        params = new String[]{"1"};
+        filter.put(TYPE_ID, params);
     }
 
 }
