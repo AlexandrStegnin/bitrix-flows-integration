@@ -121,6 +121,7 @@ public class ContactServiceImpl implements ContactService {
      */
     @Override
     public List<Contact> saveContacts(@NotNull List<Contact> contacts) {
+        contactRepository.deleteAll();
         return contactRepository.saveAll(contacts);
     }
 
