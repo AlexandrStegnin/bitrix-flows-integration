@@ -34,6 +34,7 @@ public class ContactFilter {
         select.add("LAST_NAME");
         select.add("EMAIL");
         select.add("UF_CRM_AMO_413201");
+        select.add("UF_CRM_1568363263537");
         params = new String[]{"1"};
         filter.put(TYPE_ID, params);
     }

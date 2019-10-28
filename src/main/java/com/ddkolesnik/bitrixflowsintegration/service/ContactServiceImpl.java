@@ -101,7 +101,7 @@ public class ContactServiceImpl implements ContactService {
     public List<Contact> getContactsList(@NotNull BitrixResult bitrixResult) {
         List<Contact> contacts = new ArrayList<>();
         if (!Objects.equals(null, bitrixResult.getError())) {
-            logger.error("Error getting contacts info: ", bitrixResult.getError());
+            logger.error("Error getting contacts info: " + bitrixResult.getError());
         } else {
             contacts = bitrixResult.getResult();
         }
@@ -144,7 +144,7 @@ public class ContactServiceImpl implements ContactService {
             // проверяем, может API вернуло ошибку
             if (!Objects.equals(null, result.getError())) {
                 // пишем в логи и возвращаем то, что есть на данный момент в результате
-                logger.error("Error getting contacts info: ", result.getError());
+                logger.error("Error getting contacts info: " + result.getError());
                 return totalResult;
             }
             // если в ответе пришёл параметр next, значит есть ещё записи, которые не вернулись

@@ -43,19 +43,25 @@ public class Contact extends AbstractEntity {
     @JsonProperty("UF_CRM_AMO_413201")
     private String userType;
 
+    @Column(name = "partner_code")
+    @JsonProperty("UF_CRM_1568363263537")
+    private String partnerCode;
+
     @JsonCreator
     public Contact(@JsonProperty("ID") String id,
                    @JsonProperty("NAME") String name,
                    @JsonProperty("SECOND_NAME") String secondName,
                    @JsonProperty("LAST_NAME") String lastName,
                    @JsonProperty("EMAIL") List<Email> email,
-                   @JsonProperty("UF_CRM_AMO_413201") String userType) {
+                   @JsonProperty("UF_CRM_AMO_413201") String userType,
+                   @JsonProperty("UF_CRM_1568363263537") String partnerCode) {
         this.setId(id);
         this.name = name;
         this.secondName = secondName;
         this.lastName = lastName;
         this.emails = email;
         this.userType = userType;
+        this.partnerCode = partnerCode;
     }
 
 }
