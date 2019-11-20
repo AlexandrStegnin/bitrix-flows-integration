@@ -28,3 +28,7 @@ ALTER TABLE bitrix_flows.bitrix_contact ADD updated_at timestamp NULL;
 
 ALTER TABLE bitrix_flows.bitrix_contact_email ADD created_at TIMESTAMP NULL;
 ALTER TABLE bitrix_flows.bitrix_contact_email ADD updated_at TIMESTAMP NULL;
+
+ALTER TABLE bitrix_flows.bitrix_contact ADD partner_code VARCHAR(100) NULL;
+
+ALTER TABLE bitrix_flows.bitrix_contact ADD birthday DATETIME NULL;

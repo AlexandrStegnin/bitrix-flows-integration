@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,6 +47,10 @@ public class Contact extends AbstractEntity {
     @JsonProperty("UF_CRM_1568363263537")
     private String partnerCode;
 
+    @Column(name = "birthday")
+    @JsonProperty("BIRTHDATE")
+    private Date birthday;
+
     @JsonCreator
     public Contact(@JsonProperty("ID") String id,
                    @JsonProperty("NAME") String name,
@@ -54,7 +58,8 @@ public class Contact extends AbstractEntity {
                    @JsonProperty("LAST_NAME") String lastName,
                    @JsonProperty("EMAIL") List<Email> email,
                    @JsonProperty("UF_CRM_AMO_413201") String userType,
-                   @JsonProperty("UF_CRM_1568363263537") String partnerCode) {
+                   @JsonProperty("UF_CRM_1568363263537") String partnerCode,
+                   @JsonProperty("BIRTHDATE") Date birthday) {
         this.setId(id);
         this.name = name;
         this.secondName = secondName;
@@ -62,6 +67,7 @@ public class Contact extends AbstractEntity {
         this.emails = email;
         this.userType = userType;
         this.partnerCode = partnerCode;
+        this.birthday = birthday;
     }
 
 }
