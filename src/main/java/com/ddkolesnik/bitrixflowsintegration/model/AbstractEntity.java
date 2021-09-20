@@ -21,7 +21,7 @@ public class AbstractEntity {
     @Id
     @JsonProperty
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

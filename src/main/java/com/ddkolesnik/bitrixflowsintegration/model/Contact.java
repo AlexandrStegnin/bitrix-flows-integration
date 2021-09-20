@@ -52,7 +52,7 @@ public class Contact extends AbstractEntity {
     private Date birthday;
 
     @JsonCreator
-    public Contact(@JsonProperty("ID") String id,
+    public Contact(@JsonProperty("ID") Long id,
                    @JsonProperty("NAME") String name,
                    @JsonProperty("SECOND_NAME") String secondName,
                    @JsonProperty("LAST_NAME") String lastName,

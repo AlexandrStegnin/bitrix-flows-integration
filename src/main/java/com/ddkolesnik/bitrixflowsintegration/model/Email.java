@@ -41,7 +41,7 @@ public class Email extends AbstractEntity {
     private Contact contact;
 
     @JsonCreator
-    public Email(@JsonProperty("ID") String id,
+    public Email(@JsonProperty("ID") Long id,
                  @JsonProperty("VALUE_TYPE") String valueType,
                  @JsonProperty("VALUE") String value,
                  @JsonProperty("TYPE_ID") String typeId) {
